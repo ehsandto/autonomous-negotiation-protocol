@@ -16,6 +16,11 @@ Finalized terms produce an immutable proof-root certificate. Execution is bound 
 
 `POLICY → OPEN → PROPOSALS → COMMITMENTS → FINAL_REVIEW → FINALIZED → EXECUTED`
 
+## Live deployment
+
+- [StudioNet contract](https://explorer-studio.genlayer.com/address/0x708d3056B37cFb4B73f32B0A8050987268AdAf99)
+- [Onchain lifecycle proofs](LIVE_PROOFS.md)
+
 ## Validate
 
 ```bash

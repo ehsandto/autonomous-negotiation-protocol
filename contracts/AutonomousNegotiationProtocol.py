@@ -117,7 +117,7 @@ class AutonomousNegotiationProtocol(gl.Contract):
             raise gl.UserError(f"{EXPECTED} UNAUTHORIZED_NEGOTIATOR")
         if policy.deadline <= _now() or session.current_round >= policy.max_rounds or session.state in ("FINALIZED", "EXECUTED"):
             raise gl.UserError(f"{EXPECTED} negotiation closed")
-        if (session.current_round == 0 and parent != "") or (session.current_round > 0 and parent != session.current_proposal):
+        if (session.current_round == 0 and parent not in ("", "ROOT")) or (session.current_round > 0 and parent != session.current_proposal):
             raise gl.UserError(f"{EXPECTED} stale proposal parent")
         valid = asset == policy.asset and price <= policy.max_price and quality >= policy.min_quality
         round_number = session.current_round + 1

@@ -1,0 +1,5 @@
+.pydeps/
+__pycache__/
+.pytest_cache/
+.env
+*.key

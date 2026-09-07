@@ -137,6 +137,8 @@ class AutonomousNegotiationProtocol(gl.Contract):
         sender = gl.message.sender_address
         if sender != policy.party_a and sender != policy.party_b:
             raise gl.UserError(f"{EXPECTED} UNAUTHORIZED_NEGOTIATOR")
+        if session.state not in ("OPEN", "NEGOTIATING", "PROPOSAL_SUBMITTED", "FINAL_REVIEW"):
+            raise gl.UserError(f"{EXPECTED} terminal session")
         if session.current_proposal != proposal_id or proposal.session_id != session_id or not proposal.valid:
             raise gl.UserError(f"{EXPECTED} inactive proposal")
         if terms_hash != proposal.terms_hash:
@@ -148,12 +150,16 @@ class AutonomousNegotiationProtocol(gl.Contract):
     @gl.public.write
     def finalize(self, session_id: str, proposal_id: str) -> None:
         session = self.sessions[session_id]
+        if session.state not in ("FINAL_REVIEW", "PROPOSAL_SUBMITTED"):
+            raise gl.UserError(f"{EXPECTED} session not finalizable")
+        if session_id in self.certificates:
+            raise gl.UserError(f"{EXPECTED} CERTIFICATE_EXISTS")
         proposal = self.proposals[proposal_id]
         policy = self.policies[session.policy_id]
         identity = proposal.proposer == policy.party_a or proposal.proposer == policy.party_b
         constraints = proposal.valid
         commitment = self.commitments.get(proposal_id + "|" + str(policy.party_a), False) and self.commitments.get(proposal_id + "|" + str(policy.party_b), False)
-        freshness = session.current_proposal == proposal_id and policy.deadline > _now() and session.state != "FINALIZED"
+        freshness = session.current_proposal == proposal_id and policy.deadline > _now()
         prompt = ("Assess a bounded two-party negotiation. Return JSON only: alignment_score and fairness_score integers 0-100, improvement boolean. "
             "Fairness rejects exploitation. Alignment requires meaningful value for both objectives. A reasonable first offer counts as improvement. "
             f"A objective: {policy.objective_a}. B objective: {policy.objective_b}. Round: {proposal.round}. "
@@ -201,6 +207,9 @@ class AutonomousNegotiationProtocol(gl.Contract):
 
     @gl.public.write
     def execute(self, session_id: str, terms_hash: str) -> None:
+        session = self.sessions[session_id]
+        if session.state != "FINALIZED":
+            raise gl.UserError(f"{EXPECTED} session not executable")
         certificate = self.certificates[session_id]
         if certificate.consumed:
             raise gl.UserError(f"{EXPECTED} ALREADY_EXECUTED")
@@ -208,7 +217,6 @@ class AutonomousNegotiationProtocol(gl.Contract):
             raise gl.UserError(f"{EXPECTED} TERM_MISMATCH")
         certificate.consumed = True
         self.certificates[session_id] = certificate
-        session = self.sessions[session_id]
         session.state = "EXECUTED"
         self.sessions[session_id] = session
 

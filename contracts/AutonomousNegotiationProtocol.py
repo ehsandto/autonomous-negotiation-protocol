@@ -115,7 +115,7 @@ class AutonomousNegotiationProtocol(gl.Contract):
         sender = gl.message.sender_address
         if sender != policy.party_a and sender != policy.party_b:
             raise gl.UserError(f"{EXPECTED} UNAUTHORIZED_NEGOTIATOR")
-        if policy.deadline <= _now() or session.current_round >= policy.max_rounds or session.state in ("FINALIZED", "EXECUTED"):
+        if policy.deadline <= _now() or session.current_round >= policy.max_rounds or session.state in ("FINALIZED", "EXECUTED", "INVALID"):
             raise gl.UserError(f"{EXPECTED} negotiation closed")
         if (session.current_round == 0 and parent not in ("", "ROOT")) or (session.current_round > 0 and parent != session.current_proposal):
             raise gl.UserError(f"{EXPECTED} stale proposal parent")
@@ -137,7 +137,7 @@ class AutonomousNegotiationProtocol(gl.Contract):
         sender = gl.message.sender_address
         if sender != policy.party_a and sender != policy.party_b:
             raise gl.UserError(f"{EXPECTED} UNAUTHORIZED_NEGOTIATOR")
-        if session.state not in ("OPEN", "NEGOTIATING", "PROPOSAL_SUBMITTED", "FINAL_REVIEW"):
+        if session.state not in ("PROPOSAL_SUBMITTED", "FINAL_REVIEW"):
             raise gl.UserError(f"{EXPECTED} terminal session")
         if session.current_proposal != proposal_id or proposal.session_id != session_id or not proposal.valid:
             raise gl.UserError(f"{EXPECTED} inactive proposal")

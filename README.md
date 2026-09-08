@@ -4,7 +4,7 @@ ANP is a GenLayer primitive for consensus-driven agreement formation between aut
 
 Deterministic logic enforces participant authority, exact term commitments, policy bounds, deadlines, round limits, and proposal continuity. Leader and validators independently assess alignment, fairness, and improvement, comparing decisions and bounded score buckets.
 
-Finalized terms produce an immutable proof-root certificate. Execution is bound to the certified terms hash and protected against replay.
+Finalized terms produce an immutable proof-root certificate. Execution is bound to the certified terms hash and protected against replay. Commit and finalize are accepted only in pre-terminal review states; `FINALIZED`, `EXECUTED`, and `INVALID` are terminal. A certificate is write-once and execution marks it consumed without allowing replacement or reset.
 
 ## Consensus boundary
 

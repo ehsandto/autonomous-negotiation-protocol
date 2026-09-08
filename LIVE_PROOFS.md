@@ -2,6 +2,8 @@
 
 Contract: [`0x708d3056B37cFb4B73f32B0A8050987268AdAf99`](https://explorer-studio.genlayer.com/address/0x708d3056B37cFb4B73f32B0A8050987268AdAf99)
 
+The source correction is committed in [`150e4fe`](https://github.com/ehsandto/autonomous-negotiation-protocol/commit/150e4fe): terminal sessions reject further proposals/commitments, finalize is pre-terminal only, and certificates cannot be overwritten after consumption. The existing transactions below prove the original lifecycle; a fresh deployment is required to produce proofs for this corrected bytecode.
+
 | Proof | Transaction | Result |
 |---|---|---|
 | Deployment | [`0xec7b11...8973a0`](https://explorer-studio.genlayer.com/tx/0xec7b11f2c2ef2de9ef9be2054d7bf5256c8df778320c9b8559eed933efe8973a0) | Accepted, 5/5 validator agreement |

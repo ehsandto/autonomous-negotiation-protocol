@@ -1,11 +1,12 @@
 # Live StudioNet proofs
 
-Contract: [`0x708d3056B37cFb4B73f32B0A8050987268AdAf99`](https://explorer-studio.genlayer.com/address/0x708d3056B37cFb4B73f32B0A8050987268AdAf99)
+Contract: [`0x781382906eEd4C193B39386183eeC85440dF97a1`](https://explorer-studio.genlayer.com/address/0x781382906eEd4C193B39386183eeC85440dF97a1)
 
-The source correction is committed in [`150e4fe`](https://github.com/ehsandto/autonomous-negotiation-protocol/commit/150e4fe): terminal sessions reject further proposals/commitments, finalize is pre-terminal only, and certificates cannot be overwritten after consumption. The existing transactions below prove the original lifecycle; a fresh deployment is required to produce proofs for this corrected bytecode.
+The source correction is committed in [`150e4fe`](https://github.com/ehsandto/autonomous-negotiation-protocol/commit/150e4fe): terminal sessions reject further proposals/commitments, finalize is pre-terminal only, and certificates cannot be overwritten after consumption.
 
 | Proof | Transaction | Result |
 |---|---|---|
+| Corrected deployment | [`0x94fdf5...df0665`](https://explorer-studio.genlayer.com/tx/0x94fdf5893ff3a57b43ee76fc8cf88d3bb25b23ce62b1a6f727a13e3b82df0665) | Finalized, majority agreement |
 | Deployment | [`0xec7b11...8973a0`](https://explorer-studio.genlayer.com/tx/0xec7b11f2c2ef2de9ef9be2054d7bf5256c8df778320c9b8559eed933efe8973a0) | Accepted, 5/5 validator agreement |
 | Bounded policy | [`0x5c5076...81edfe`](https://explorer-studio.genlayer.com/tx/0x5c50767246ebf869fceb6baa519d2ba4273d436037b6708d2107984c0481edfe) | Accepted |
 | Negotiation session | [`0x8fa920...95cf22`](https://explorer-studio.genlayer.com/tx/0x8fa9209dba6b5f350a28a2f7f9619eb12794354a33b4f1da719d7c26b295cf22) | Accepted |

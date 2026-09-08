@@ -18,7 +18,7 @@ Finalized terms produce an immutable proof-root certificate. Execution is bound 
 
 ## Live deployment
 
-- [StudioNet contract](https://explorer-studio.genlayer.com/address/0x708d3056B37cFb4B73f32B0A8050987268AdAf99)
+- [Corrected StudioNet contract](https://explorer-studio.genlayer.com/address/0x781382906eEd4C193B39386183eeC85440dF97a1)
 - [Onchain lifecycle proofs](LIVE_PROOFS.md)
 
 ## Validate
